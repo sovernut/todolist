@@ -9,11 +9,15 @@ page-home {
     }
 
     .label-fadeout {
-        opacity: 0;
-        transition: 0.4s linear ;
+        font-size: 30px;
+        font-weight: bold;
+        color: green;
     }
     .label-fadein {
         opacity: 1;
+        font-size: 16px;
+        font-weight: bold;
+        color: black;
         transition: 0.4s linear ;
     }
 

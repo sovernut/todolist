@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TodoStorageProvider } from '../providers/todo-storage/todo-storage';
+import { DatePicker } from '@ionic-native/date-picker/ngx';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TodoStorageProvider } from '../providers/todo-storage/todo-storage';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    TodoStorageProvider
+    TodoStorageProvider,
+    DatePicker
   ]
 })
 export class AppModule {}

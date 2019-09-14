@@ -11,12 +11,26 @@
 </ion-header>
 
 <ion-content padding>
-<h1 *ngIf="mode=='Add'">Create</h1>
-<h1 *ngIf="mode=='Edit'">Edit</h1>
+<h1 text-center *ngIf="mode=='Add'">Create</h1>
+<h1 text-center *ngIf="mode=='Edit'">Edit</h1>
 <ion-item>
   <ion-input [(ngModel)]="text"></ion-input>
 </ion-item>
-
+<ion-item>
+    <ion-label>Priority</ion-label>
+    <ion-select [(ngModel)]="priority">
+      <ion-option value="1">!</ion-option>
+      <ion-option value="2">!!</ion-option>
+      <ion-option value="3">!!!</ion-option>
+    </ion-select>
+  </ion-item>
+<!-- <ion-item>
+  <ion-input></ion-input><button item-right ion-button (click)="pickDate()">pick date</button>
+</ion-item> -->
+<ion-item>
+    <ion-label>Date</ion-label>
+    <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="date" [min]="getYearPlus()" [max]="getYearPlus(5)"></ion-datetime>
+  </ion-item>
 <ion-footer>
   <ion-row>
     <ion-col>

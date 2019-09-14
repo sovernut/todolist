@@ -13,7 +13,6 @@ export class HomePage implements OnInit {
   todolist = []
   isAdding: Boolean = false
   longPress: Boolean[] = []
-
   constructor(
     public navCtrl: NavController,
     private formBuilder: FormBuilder,
@@ -69,6 +68,9 @@ export class HomePage implements OnInit {
      mode: 'Edit'},
     { cssClass: 'my-custom-modal-css'});
     myModal.present();
+    myModal.onDidDismiss( () => {
+      this.longPress[i] = false
+    })
     this.longPress[i] = true
   }
 
