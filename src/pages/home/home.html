@@ -7,16 +7,17 @@
 </ion-header>
 
 <ion-content padding>
-  <h1 text-center>All</h1>
-  <ion-item *ngFor="let i of [1,2,3]">
+  <h1 text-center> . . . </h1>
+  <ion-item *ngFor="let todo of todolist;let i = index">
     <ion-label 
     id="todo-{{i}}" 
     (click)="!isAdding ? doneTodo(i): null" 
     (press)="!isAdding ? editTodo(i): null"
       [ngClass]="{'label-fadeout' : longPress[i],
       'label-fadein': !longPress[i],
-      'gray' : isAdding}">
-      Todo #{{i}}
+      'gray' : isAdding,
+      'done' : todo.done}">
+      {{ todo.todoText }}
     </ion-label>
   </ion-item>
 
@@ -29,7 +30,7 @@
         color="secondary" 
         [ngClass]="{'btn-fadeout' : !isAdding,
                   'btn-fadein': isAdding}"
-        (click)="onAddForm()" ion-fab mini>
+        (click)="onCreateTodo()" ion-fab mini>
         <ion-icon name="add"></ion-icon>
       </button>
 
@@ -43,4 +44,5 @@
       <ion-icon name="add"></ion-icon>
     </button>
   </ion-fab>
+  
 </ion-content>

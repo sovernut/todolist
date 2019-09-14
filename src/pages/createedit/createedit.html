@@ -1,0 +1,39 @@
+<!--
+  Generated template for the CreateeditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>TODO</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<h1 *ngIf="mode=='Add'">Create</h1>
+<h1 *ngIf="mode=='Edit'">Edit</h1>
+<ion-item>
+  <ion-input [(ngModel)]="text"></ion-input>
+</ion-item>
+
+<ion-footer>
+  <ion-row>
+    <ion-col>
+        <button color="ok" *ngIf="mode=='Add'" round ion-button block (click)="onAdd()">
+            Add
+          </button>
+        <button color="ok" *ngIf="mode=='Edit'" round ion-button block (click)="onEdit()">
+            Edit
+          </button>
+    </ion-col>
+    <ion-col>
+        <button color="danger" round ion-button block (click)="onClose()">
+            Close
+          </button>
+    </ion-col>
+  </ion-row>
+
+
+</ion-footer>
+</ion-content>

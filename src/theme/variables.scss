@@ -38,7 +38,8 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  ok: rgb(72, 138, 72)
 );
 
 
@@ -86,3 +87,16 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+
+.my-custom-modal-css .modal-wrapper {
+  width: 90%;
+  border-radius: 10px;
+  height: 70%;
+  margin: 20% 20px;
+}
+.my-custom-modal-css {
+  background-color: rgba(0, 0, 0, 0.671);
+}
+
+

@@ -11,7 +11,7 @@ import { TodoStorageProvider } from '../providers/todo-storage/todo-storage';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
   ],
   imports: [
     BrowserModule,
@@ -20,7 +20,7 @@ import { TodoStorageProvider } from '../providers/todo-storage/todo-storage';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
   ],
   providers: [
     StatusBar,
