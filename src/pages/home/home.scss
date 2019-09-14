@@ -1,3 +1,10 @@
 page-home {
-
+    .btn-fadeout {
+        opacity: 0;
+        transition: 0.5s linear ;
+    }
+    .btn-fadein {
+        opacity: 1;
+        transition: 0.5s linear ;
+    }
 }

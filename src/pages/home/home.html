@@ -1,14 +1,39 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
+    <ion-title text-center>
+      Simple Todo
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <h1 text-center>All</h1>
+  <ion-item *ngFor="let i of [1,2,3]">
+    
+      <ion-checkbox></ion-checkbox>
+      <ion-label (click)="editTodo()" >
+          Todo #{{i}}
+      </ion-label>
+  </ion-item>
+ 
+  <form *ngIf="isAdding" [formGroup]="formTodo">
+    <ion-item>
+        <ion-input 
+        (input)="onTodoChange()" 
+        [formControl]="formTodo.controls['todo']" 
+        type="text"
+        (ionBlur)="onLostFocus()"
+        >  
+      </ion-input>
+          <button item-right color="secondary" [ngClass]="{'btn-fadeout' : !isAdding,'btn-fadein': isAdding}" (click)="onAddForm()" ion-fab mini>
+            <ion-icon name="add"></ion-icon>
+          </button>
+
+    </ion-item>
+  </form>
+  <ion-fab right top>
+      <button [disabled]="isAdding" [ngClass]="{'btn-fadeout' : isAdding,'btn-fadein': !isAdding}" (click)="onAddForm()" ion-fab mini>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-fab>
 </ion-content>
