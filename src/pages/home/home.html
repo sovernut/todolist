@@ -9,31 +9,38 @@
 <ion-content padding>
   <h1 text-center>All</h1>
   <ion-item *ngFor="let i of [1,2,3]">
-    
-      <ion-checkbox></ion-checkbox>
-      <ion-label (click)="editTodo()" >
-          Todo #{{i}}
-      </ion-label>
+    <ion-label 
+    id="todo-{{i}}" 
+    (click)="!isAdding ? doneTodo(i): null" 
+    (press)="!isAdding ? editTodo(i): null"
+      [ngClass]="{'label-fadeout' : longPress[i],
+      'label-fadein': !longPress[i],
+      'gray' : isAdding}">
+      Todo #{{i}}
+    </ion-label>
   </ion-item>
- 
+
   <form *ngIf="isAdding" [formGroup]="formTodo">
     <ion-item>
-        <ion-input 
-        (input)="onTodoChange()" 
-        [formControl]="formTodo.controls['todo']" 
-        type="text"
-        (ionBlur)="onLostFocus()"
-        >  
+      <ion-input (input)="onTodoChange()" [formControl]="formTodo.controls['todo']" type="text"
+        (ionBlur)="onLostFocus()">
       </ion-input>
-          <button item-right color="secondary" [ngClass]="{'btn-fadeout' : !isAdding,'btn-fadein': isAdding}" (click)="onAddForm()" ion-fab mini>
-            <ion-icon name="add"></ion-icon>
-          </button>
+      <button item-right 
+        color="secondary" 
+        [ngClass]="{'btn-fadeout' : !isAdding,
+                  'btn-fadein': isAdding}"
+        (click)="onAddForm()" ion-fab mini>
+        <ion-icon name="add"></ion-icon>
+      </button>
 
     </ion-item>
   </form>
   <ion-fab right top>
-      <button [disabled]="isAdding" [ngClass]="{'btn-fadeout' : isAdding,'btn-fadein': !isAdding}" (click)="onAddForm()" ion-fab mini>
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-fab>
+    <button [disabled]="isAdding" 
+    [ngClass]="{'btn-fadeout' : isAdding, 'btn-fadein' : !isAdding}" 
+    (click)="onAddForm()"
+      ion-fab mini>
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
