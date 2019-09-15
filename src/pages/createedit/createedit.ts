@@ -30,7 +30,7 @@ export class CreateeditPage {
      private datePicker: DatePicker,
      private _todoProvider: TodoStorageProvider) {
 
-      
+      this.itemTodo = new Todo('','','','',false)
       this.mode = this._navParams.get('mode')
 
       if (this.mode == "Add"){
@@ -48,12 +48,14 @@ export class CreateeditPage {
   }
 
   onClose(){
-    console.log(this.text)
+    //console.log(this.text)
     this.viewCtrl.dismiss()
   }
 
   onAdd(){
-    console.log(this.genUniqueID())
+    let id = this.genUniqueID()
+    this.itemTodo.todoid = id
+    this._todoProvider.addTodo(this.itemTodo)
     this.viewCtrl.dismiss()
 
   }
@@ -61,7 +63,7 @@ export class CreateeditPage {
   genUniqueID(){
     let time = new Date();
     let uid = time + '' + Math.random()
-    return Md5.hashStr(uid)
+    return Md5.hashStr(uid)+''
   }
 
   onEdit(){

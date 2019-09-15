@@ -31,9 +31,10 @@ export class TodoStorageProvider {
   }
 
   removeTodo(id){
-    this.todolist = this.todolist.filter( (v,i) => {
-      return v.todoid != id
-    })
+    // this.todolist = this.todolist.filter( (v,i) => {
+    //   return v.todoid != id
+    // })
+    console.log('what ..',this.todolist)
   }
 
   editTodo(id,item) {
@@ -45,7 +46,7 @@ export class TodoStorageProvider {
 
   
   getAllTodo(){
-    return this.todolist.slice()
+    return this.todolist
   }
 
 

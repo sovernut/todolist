@@ -9,16 +9,15 @@ page-home {
     }
 
     .label-fadeout {
-        font-size: 30px;
+        font-size: 20px;
         font-weight: bold;
         color: green;
     }
     .label-fadein {
         opacity: 1;
         font-size: 16px;
-        font-weight: bold;
         color: black;
-        transition: 0.4s linear ;
+        transition: 0.1s linear ;
     }
 
     .gray {
@@ -28,6 +27,12 @@ page-home {
 
     .done {
         text-decoration: line-through
+    }
+
+
+    .icon-custom-pos {
+        position: relative;
+        left: 10%;
     }
 
     

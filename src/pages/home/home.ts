@@ -74,13 +74,20 @@ export class HomePage implements OnInit {
     this.longPress[i] = true
   }
 
-
-
   doneTodo(i) {
     if (!this.longPress[i]) {
       console.log('done')
       this.todolist[i].done  = true
     }
     this.longPress[i] = false;
+  }
+
+  deleteTodo(i){
+    console.log(this.todolist[i])
+    let todoid = this.todolist[i].todoid
+    this.todolist = this.todolist.filter( (v,i) => {
+      return v.todoid != todoid
+    })
+    // this._todoProvider.removeTodo(this.todolist[i].todoid)
   }
 }

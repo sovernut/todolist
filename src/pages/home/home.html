@@ -8,7 +8,9 @@
 
 <ion-content padding>
   <h1 text-center> . . . </h1>
-  <ion-item *ngFor="let todo of todolist;let i = index">
+  <ion-list>
+  <ion-item-sliding *ngFor="let todo of todolist;let i = index" (ionSwipe)="deleteTodo(i)">
+  <ion-item>
     <ion-label 
     id="todo-{{i}}" 
     (click)="!isAdding ? doneTodo(i): null" 
@@ -17,9 +19,24 @@
       'label-fadein': !longPress[i],
       'gray' : isAdding,
       'done' : todo.done}">
-      {{ todo.todoText }}
+      {{ todo.todoText }} - {{ todo.date }}
     </ion-label>
   </ion-item>
+
+  <ion-item-options side="right">
+    <button ion-button icon-only 
+      color="danger" 
+      (click)="deleteTodo(i)"
+      >
+      <ion-icon class="icon-custom-pos" name="trash"></ion-icon>
+    </button>
+  </ion-item-options>
+</ion-item-sliding>
+</ion-list>
+
+
+
+
 
   <form *ngIf="isAdding" [formGroup]="formTodo">
     <ion-item>
@@ -33,8 +50,9 @@
         (click)="onCreateTodo()" ion-fab mini>
         <ion-icon name="add"></ion-icon>
       </button>
-
     </ion-item>
+
+ 
   </form>
   <ion-fab right top>
     <button [disabled]="isAdding" 
