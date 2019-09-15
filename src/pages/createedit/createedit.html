@@ -14,11 +14,11 @@
 <h1 text-center *ngIf="mode=='Add'">Create</h1>
 <h1 text-center *ngIf="mode=='Edit'">Edit</h1>
 <ion-item>
-  <ion-input [(ngModel)]="text"></ion-input>
+  <ion-input [(ngModel)]="itemTodo.todoText"></ion-input>
 </ion-item>
 <ion-item>
     <ion-label>Priority</ion-label>
-    <ion-select [(ngModel)]="priority">
+    <ion-select [(ngModel)]="itemTodo.priority">
       <ion-option value="1">!</ion-option>
       <ion-option value="2">!!</ion-option>
       <ion-option value="3">!!!</ion-option>
@@ -29,7 +29,7 @@
 </ion-item> -->
 <ion-item>
     <ion-label>Date</ion-label>
-    <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="date" [min]="mindate" [max]="maxdate"></ion-datetime>
+    <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="itemTodo.date" [min]="mindate" [max]="maxdate"></ion-datetime>
   </ion-item>
 <ion-footer>
   <ion-row>

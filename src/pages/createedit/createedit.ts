@@ -1,3 +1,5 @@
+import { Todo } from './../../model/todo';
+import { TodoStorageProvider } from './../../providers/todo-storage/todo-storage';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
@@ -16,11 +18,7 @@ import { Md5 } from 'ts-md5/dist/md5';
   templateUrl: 'createedit.html',
 })
 export class CreateeditPage {
-  text: string = ""
-  priority: string = ""
-  date: string = ""
-  min: string = ""
-  done: boolean = false
+  itemTodo: Todo
   mode: string = "Add"
   index: number = 0
   mindate = ""
@@ -29,14 +27,18 @@ export class CreateeditPage {
      public navParams: NavParams,
      public viewCtrl: ViewController,
      private _navParams: NavParams,
-     private datePicker: DatePicker) {
+     private datePicker: DatePicker,
+     private _todoProvider: TodoStorageProvider) {
 
       
       this.mode = this._navParams.get('mode')
 
       if (this.mode == "Add"){
-        this.text = this._navParams.get('todotext')
-      } 
+        this.itemTodo.todoText = this._navParams.get('todotext');
+      } else {
+        this.itemTodo = this._navParams.get('todoitem')
+        console.log('item',this.itemTodo)
+      }
       this.mindate = this.getFullDatePlus()
       this.maxdate = this.getFullYearPlus(5)
   }
@@ -51,7 +53,7 @@ export class CreateeditPage {
   }
 
   onAdd(){
-
+    console.log(this.genUniqueID())
     this.viewCtrl.dismiss()
 
   }
@@ -63,8 +65,9 @@ export class CreateeditPage {
   }
 
   onEdit(){
-    console.log(this.genUniqueID())
-    console.log(this.date)
+    console.log(this.itemTodo.date)
+    //this._todoProvider.editTodo(this.itemTodo.todoid,this.itemTodo)
+    console.log(this._todoProvider.getAllTodo())
   }
 
   pickDate(){
