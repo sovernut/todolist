@@ -19,7 +19,7 @@ export class TodoStorageProvider {
     let n = 5
     let templist = []
     for (let i=0;i<n;i++){
-      let temp = new Todo(`Todo#${i}`,'!!!','13/09/2019',false)
+      let temp = new Todo('uid'+i,`Todo#${i}`,'!!!','13/09/2019',false)
       templist.push(temp)
     }
     return templist

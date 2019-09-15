@@ -29,7 +29,7 @@
 </ion-item> -->
 <ion-item>
     <ion-label>Date</ion-label>
-    <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="date" [min]="getYearPlus()" [max]="getYearPlus(5)"></ion-datetime>
+    <ion-datetime displayFormat="MMM DD, YYYY" [(ngModel)]="date" [min]="mindate" [max]="maxdate"></ion-datetime>
   </ion-item>
 <ion-footer>
   <ion-row>
