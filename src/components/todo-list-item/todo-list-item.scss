@@ -1,0 +1,40 @@
+todo-list-item {
+    .padding{
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .label-fadeout {
+        font-size: 20px;
+        font-weight: bold;
+        color: yellow !important;   
+    }
+    .label-fadein {
+        opacity: 1;
+        font-size: 16px;
+        transition: 0.1s linear ;
+    }
+    
+    .priority1 {
+        color: rgb(99, 145, 99) !important;
+    }
+
+    .gray {
+        color: rgba(114, 111, 111, 0.493);
+        transition:  0s;
+    }
+
+
+    .done {
+        text-decoration: line-through
+    }
+
+    .icon-custom-pos {
+        position: relative;
+        left: 10%;
+    }
+
+    .btn-delete {
+        border-radius: 30px !important;
+    }
+}

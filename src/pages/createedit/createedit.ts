@@ -19,6 +19,9 @@ import { Md5 } from 'ts-md5/dist/md5';
 })
 export class CreateeditPage {
   itemTodo: Todo
+  todoText: string = ""
+  priority: string = ""
+  date: string = ""
   mode: string = "Add"
   index: number = 0
   mindate = ""
@@ -34,10 +37,13 @@ export class CreateeditPage {
       this.mode = this._navParams.get('mode')
 
       if (this.mode == "Add"){
-        this.itemTodo.todoText = this._navParams.get('todotext');
+        this.todoText = this._navParams.get('todotext');
       } else {
         this.itemTodo = this._navParams.get('todoitem')
-        console.log('item',this.itemTodo)
+        let { todoText, priority, date} = this.itemTodo
+        this.todoText = todoText
+        this.priority = priority
+        this.date = date
       }
       this.mindate = this.getFullDatePlus()
       this.maxdate = this.getFullYearPlus(5)
@@ -67,9 +73,11 @@ export class CreateeditPage {
   }
 
   onEdit(){
-    console.log(this.itemTodo.date)
-    //this._todoProvider.editTodo(this.itemTodo.todoid,this.itemTodo)
-    console.log(this._todoProvider.getAllTodo())
+    this.itemTodo.todoText = this.todoText
+    this.itemTodo.priority = this.priority
+    this.itemTodo.date = this.date
+    this._todoProvider.editTodo(this.itemTodo.todoid,this.itemTodo)
+    this.viewCtrl.dismiss()
   }
 
   pickDate(){

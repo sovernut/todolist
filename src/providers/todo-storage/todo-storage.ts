@@ -1,3 +1,4 @@
+import { SecureStorage } from '@ionic-native/secure-storage/ngx';
 import { Injectable } from '@angular/core';
 import { Todo } from '../../model/todo'
 /*
@@ -10,7 +11,7 @@ import { Todo } from '../../model/todo'
 export class TodoStorageProvider {
 
   todolist: Todo[] = []
-  constructor() {
+  constructor(private _storage: SecureStorage) {
     console.log('Hello TodoStorageProvider Provider');
     this.todolist = this.genDummy()
   }
@@ -31,10 +32,10 @@ export class TodoStorageProvider {
   }
 
   removeTodo(id){
-    // this.todolist = this.todolist.filter( (v,i) => {
-    //   return v.todoid != id
-    // })
-    console.log('what ..',this.todolist)
+    this.todolist = this.todolist.filter( (v,i) => {
+      return v.todoid != id
+    })
+    console.log('todo in storage ..',this.todolist)
   }
 
   editTodo(id,item) {

@@ -12,7 +12,6 @@ export class HomePage implements OnInit {
   formTodo: FormGroup
   todolist = []
   isAdding: Boolean = false
-  longPress: Boolean[] = []
   constructor(
     public navCtrl: NavController,
     private formBuilder: FormBuilder,
@@ -24,15 +23,15 @@ export class HomePage implements OnInit {
       priority: '!!!',
       date: '11/09/2019'
     });
-    let itemlen = 3
-    for (let i = 0; i < itemlen; i++) {
-      this.longPress.push(false)
-    }
     // this.formTodo.controls['todolistForm'].
   }
 
   ngOnInit(){
-     this.todolist = this._todoProvider.getAllTodo()
+    this.getTodoList()
+  }
+
+  getTodoList(){
+    this.todolist = this._todoProvider.getAllTodo()
   }
 
   onTodoChange() {
@@ -41,7 +40,6 @@ export class HomePage implements OnInit {
 
   onAddForm() {
     this.isAdding = true;
-    // this.formTodo.controls['todolistForm'].push(this.formTodoTemp)
   }
 
   onCreateTodo(){
@@ -61,33 +59,7 @@ export class HomePage implements OnInit {
     this.isAdding = false;
   }
 
-  editTodo(i) {
-    console.log('long press')
-    const myModal = this._modalCtrl.create('CreateeditPage',
-    {todoitem: this.todolist[i],
-     mode: 'Edit'},
-    { cssClass: 'my-custom-modal-css'});
-    myModal.present();
-    myModal.onDidDismiss( () => {
-      this.longPress[i] = false
-    })
-    this.longPress[i] = true
-  }
-
-  doneTodo(i) {
-    if (!this.longPress[i]) {
-      console.log('done')
-      this.todolist[i].done  = true
-    }
-    this.longPress[i] = false;
-  }
-
-  deleteTodo(i){
-    console.log(this.todolist[i])
-    let todoid = this.todolist[i].todoid
-    this.todolist = this.todolist.filter( (v,i) => {
-      return v.todoid != todoid
-    })
-    // this._todoProvider.removeTodo(this.todolist[i].todoid)
+  updateList(ev){
+    this.getTodoList()
   }
 }

@@ -8,33 +8,6 @@ page-home {
         transition: 0.5s linear ;
     }
 
-    .label-fadeout {
-        font-size: 20px;
-        font-weight: bold;
-        color: green;
-    }
-    .label-fadein {
-        opacity: 1;
-        font-size: 16px;
-        color: black;
-        transition: 0.1s linear ;
-    }
-
-    .gray {
-        color: rgba(114, 111, 111, 0.493);
-        transition:  0s;
-    }
-
-    .done {
-        text-decoration: line-through
-    }
-
-
-    .icon-custom-pos {
-        position: relative;
-        left: 10%;
-    }
-
     
 
 }
