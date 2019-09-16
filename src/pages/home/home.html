@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <h1 text-center> . . . </h1>
+  <h1 text-center> sort by ... </h1>
   <form *ngIf="isAdding" [formGroup]="formTodo">
     <ion-item>
       <ion-input (input)="onTodoChange()" [formControl]="formTodo.controls['todo']" type="text"
@@ -17,7 +17,8 @@
         color="ok" 
         [ngClass]="{'btn-fadeout' : !isAdding,
                   'btn-fadein': isAdding}"
-        (click)="onCreateTodo()" >
+        (click)="onCreateTodo()" 
+        [disabled]="formTodo.invalid">
         <ion-icon name="add" ></ion-icon>
       </button>
     </ion-item>

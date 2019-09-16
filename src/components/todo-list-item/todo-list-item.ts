@@ -25,11 +25,9 @@ export class TodoListItemComponent {
   constructor(private _modalCtrl: ModalController,
     private _todoProvider: TodoStorageProvider) {
     console.log('Hello TodoListItemComponent Component');
-    this.text = 'Hello World';
   }
 
   editTodo() {
-    console.log('long press')
     const myModal = this._modalCtrl.create('CreateeditPage',
     {todoitem: this.ItemTodo,
      mode: 'Edit'},
@@ -49,10 +47,10 @@ export class TodoListItemComponent {
     this.longPress = false;
   }
 
-  deleteTodo(){
+  async deleteTodo(){
     console.log('TODO ',this.ItemTodo)
     let todoid = this.ItemTodo.todoid
-    this._todoProvider.removeTodo(todoid)
+    await this._todoProvider.removeTodo(todoid)
     this.deleteItemTodo.emit(1)
   }
 

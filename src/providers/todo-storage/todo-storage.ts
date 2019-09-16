@@ -1,19 +1,21 @@
-import { SecureStorage } from '@ionic-native/secure-storage/ngx';
 import { Injectable } from '@angular/core';
 import { Todo } from '../../model/todo'
-/*
-  Generated class for the TodoStorageProvider provider.
+import { Storage } from '@ionic/storage';
+import { resolveDefinition } from '@angular/core/src/view/util';
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+
 @Injectable()
 export class TodoStorageProvider {
 
-  todolist: Todo[] = []
-  constructor(private _storage: SecureStorage) {
+  todolist = []
+  constructor(private _storage: Storage) {
     console.log('Hello TodoStorageProvider Provider');
-    this.todolist = this.genDummy()
+    // this.todolist = this.genDummy()
+    // this._storage.set('todolist',this.todolist)
+    // this._storage.get('todolist').then( item => {
+    //   this.todolist = item
+    //   console.log(this.todolist)
+    // })
   }
 
   genDummy(){
@@ -29,13 +31,15 @@ export class TodoStorageProvider {
   addTodo(item :Todo){
     item.done = false; // Default
     this.todolist.push(item)
+    this.updateStorage()
+
   }
 
   removeTodo(id){
     this.todolist = this.todolist.filter( (v,i) => {
       return v.todoid != id
     })
-    console.log('todo in storage ..',this.todolist)
+    this.updateStorage()
   }
 
   editTodo(id,item) {
@@ -43,11 +47,33 @@ export class TodoStorageProvider {
       return v.todoid == id
     })
     todoToEdit = item
+    this.updateStorage()
   }
 
   
-  getAllTodo(){
-    return this.todolist
+  async getAllTodo(){
+    return new Promise((res,rej) => {
+      this._storage.get('todolist').then( item => {
+        console.log('getItem in storage >',item)
+        this.todolist = item
+        res(this.todolist)
+      }).catch( (err) => {
+        console.error('Error getAllTodo > ',err)
+      })
+    })
+  }
+
+  
+  updateStorage(){
+    new Promise((res,rej) => {
+      this._storage.set('todolist',this.todolist).then( item => {
+
+        console.log('Updated successfully',item)
+        res('Updated storage successfully.')
+      }).catch( (err) => {
+        console.error('Error updateStorage > ',err)
+      })
+    }) 
   }
 
 

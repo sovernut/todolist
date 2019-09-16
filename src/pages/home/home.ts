@@ -2,7 +2,7 @@ import { CreateeditPage } from './../createedit/createedit';
 import { TodoStorageProvider } from './../../providers/todo-storage/todo-storage';
 import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'page-home',
@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class HomePage implements OnInit {
   formTodo: FormGroup
-  todolist = []
+  todolist: any
   isAdding: Boolean = false
   constructor(
     public navCtrl: NavController,
@@ -19,9 +19,7 @@ export class HomePage implements OnInit {
     private _modalCtrl: ModalController
   ) {
     this.formTodo = this.formBuilder.group({
-      todo: '',
-      priority: '!!!',
-      date: '11/09/2019'
+      todo: ['',Validators.required],
     });
     // this.formTodo.controls['todolistForm'].
   }
@@ -30,8 +28,9 @@ export class HomePage implements OnInit {
     this.getTodoList()
   }
 
-  getTodoList(){
-    this.todolist = this._todoProvider.getAllTodo()
+  async getTodoList(){
+    this.todolist = await this._todoProvider.getAllTodo()
+    console.log('getTodoList from provider >',this.todolist)
   }
 
   onTodoChange() {
@@ -59,7 +58,8 @@ export class HomePage implements OnInit {
     this.isAdding = false;
   }
 
-  updateList(ev){
-    this.getTodoList()
+  async updateList(ev){
+    console.log('delete >> update ')
+    await this.getTodoList()
   }
 }

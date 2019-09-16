@@ -61,6 +61,9 @@ export class CreateeditPage {
   onAdd(){
     let id = this.genUniqueID()
     this.itemTodo.todoid = id
+    this.itemTodo.todoText = this.todoText
+    this.itemTodo.priority = this.priority
+    this.itemTodo.date = this.date
     this._todoProvider.addTodo(this.itemTodo)
     this.viewCtrl.dismiss()
 

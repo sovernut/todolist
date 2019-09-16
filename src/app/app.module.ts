@@ -9,7 +9,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TodoStorageProvider } from '../providers/todo-storage/todo-storage';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
-import { SecureStorage } from '@ionic-native/secure-storage/ngx';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { SecureStorage } from '@ionic-native/secure-storage/ngx';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    ComponentsModule
+    ComponentsModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -31,8 +32,7 @@ import { SecureStorage } from '@ionic-native/secure-storage/ngx';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     TodoStorageProvider,
-    DatePicker,
-    SecureStorage
+    DatePicker  
   ]
 })
 export class AppModule {}
