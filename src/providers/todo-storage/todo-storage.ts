@@ -30,6 +30,7 @@ export class TodoStorageProvider {
 
   addTodo(item :Todo){
     item.done = false; // Default
+    console.log("item in todo-str ::: ",item)
     this.todolist.push(item)
     this.updateStorage()
 
@@ -55,7 +56,7 @@ export class TodoStorageProvider {
     return new Promise((res,rej) => {
       this._storage.get('todolist').then( item => {
         console.log('getItem in storage >',item)
-        this.todolist = item
+        this.todolist = item || []
         res(this.todolist)
       }).catch( (err) => {
         console.error('Error getAllTodo > ',err)

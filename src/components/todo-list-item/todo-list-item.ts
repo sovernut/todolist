@@ -39,10 +39,42 @@ export class TodoListItemComponent {
     this.longPress = true
   }
 
+  calcDate(){
+    let diff_date = new Date().getTime() - new Date(this.ItemTodo.date).getTime()
+    let one_day=1000*60*60*24;
+    diff_date /= one_day
+    diff_date = Math.round(diff_date)
+    let day = "Today"
+    if (diff_date < 0){
+      day = `In ${Math.abs(diff_date)} day(s)`
+    } else if (diff_date > 0) {
+      day = `Passed ${Math.abs(diff_date)} day(s)`
+    }
+    return day
+  }
+
+  mapPriorityToExclamation(): string{
+    let ex = ""
+    switch(this.ItemTodo.priority){
+      case '1':
+        ex = "!"
+        break;
+      case '2':
+        ex = "!!"
+        break;
+      case '3':
+        ex = "!!!"
+        break;
+      default:
+        ex = '...'
+    }
+    return ex
+  }
+
   doneTodo() {
     if (!this.longPress) {
       console.log('TODO done')
-      this.ItemTodo.done  = true
+      this.ItemTodo.done  = !this.ItemTodo.done
     }
     this.longPress = false;
   }

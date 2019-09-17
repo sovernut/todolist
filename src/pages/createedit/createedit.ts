@@ -24,6 +24,7 @@ export class CreateeditPage {
   date: string = ""
   mode: string = "Add"
   index: number = 0
+  fillAll: boolean = false
   mindate = ""
   maxdate = ""
   constructor(public navCtrl: NavController,
@@ -103,6 +104,11 @@ export class CreateeditPage {
   getFullYearPlus(num=0){
     let date = new Date()
     return date.getFullYear() + num + '';
+  }
+
+  isFillAll(){
+    let fillAll = this.todoText != "" && this.priority != "" && this.date != ""
+    return fillAll
   }
 
 }

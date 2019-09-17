@@ -7,21 +7,47 @@
 </ion-header>
 
 <ion-content padding>
-  <h1 text-center> sort by ... </h1>
-  <form *ngIf="isAdding" [formGroup]="formTodo">
+    <ion-fab top left edge>
+        <button ion-fab mini><ion-icon name="arrow-dropright"></ion-icon></button>
+        <ion-fab-list side="right">
+          <button color="primary" (click)="sortByDate()" ion-fab><ion-icon name="calendar"></ion-icon></button>
+          <button color="primary" (click)="sortByPriority()" ion-fab><ion-icon name="md-alert"></ion-icon></button>
+          <button color="primary" (click)="sortByDateThenPririty()" ion-fab><ion-icon name="md-alert"></ion-icon></button>
+        </ion-fab-list>
+      </ion-fab>
+
+      <ion-fab right top edge>
+          <button [disabled]="isAdding" 
+          [ngClass]="{'btn-fadeout' : isAdding, 'btn-fadein' : !isAdding}" 
+          (click)="onAddForm()"
+            ion-fab mini>
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-fab>
+  <form *ngIf="isAdding" [formGroup]="formTodo" 
+    style="margin-top: 30px;"
+    (ngSubmit)="onCreateTodo()">
     <ion-item>
-      <ion-input (input)="onTodoChange()" [formControl]="formTodo.controls['todo']" type="text"
-        (ionBlur)="onLostFocus()">
+      <ion-input (input)="onTodoChange()" [formControl]="formTodo.controls['todo']" type="text">
       </ion-input>
+      <button ion-button item-right outline
+      color="ok" 
+      [ngClass]="{'btn-fadeout' : !isAdding,
+                'btn-fadein': isAdding}"
+      type="submit"
+      [disabled]="!formTodo.valid"
+      style="width: 28px;"  >
+      <ion-icon name="add" ></ion-icon>
+    </button>
       <button ion-button item-right 
-        color="ok" 
-        [ngClass]="{'btn-fadeout' : !isAdding,
-                  'btn-fadein': isAdding}"
-        (click)="onCreateTodo()" 
-        [disabled]="formTodo.invalid">
-        <ion-icon name="add" ></ion-icon>
-      </button>
+      outline
+      (click)="onCloseForm()"
+      [ngClass]="{'btn-fadeout' : !isAdding,
+                'btn-fadein': isAdding}">
+      <ion-icon name="close" ></ion-icon>
+    </button>
     </ion-item>
+
   </form>
   <ion-list style="padding-top: 20px">
       <todo-list-item *ngFor="let todo of todolist;let i = index"
@@ -32,13 +58,6 @@
 </ion-list>
 
 
-  <ion-fab right top>
-    <button [disabled]="isAdding" 
-    [ngClass]="{'btn-fadeout' : isAdding, 'btn-fadein' : !isAdding}" 
-    (click)="onAddForm()"
-      ion-fab mini>
-      <ion-icon name="add"></ion-icon>
-    </button>
-  </ion-fab>
+
   
 </ion-content>
