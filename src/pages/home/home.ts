@@ -68,6 +68,7 @@ export class HomePage implements OnInit {
   async updateList(ev){
     console.log('delete >> update ')
     await this.getTodoList()
+    this.sortNow()
   }
 
   sortByPriority(pSymbol){
@@ -120,6 +121,10 @@ export class HomePage implements OnInit {
       this.sortDateSymbol = this.toggleStatus(this.sortDateSymbol)
     }
 
+    this.sortNow()
+  }
+
+  sortNow(){
     if (this.sortDateSymbol != '' && this.sortPSymbol != ''){
       this.sortByDThenP(this.sortDateSymbol,this.sortPSymbol)
     } else if (this.sortDateSymbol != '') {

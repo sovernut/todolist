@@ -57,7 +57,7 @@
       <todo-list-item *ngFor="let todo of todolist;let i = index"
         [ItemTodo]="todo"
         [isAdding]="isAdding"
-        (deleteItemTodo)="updateList($event)"
+        (updateTodo)="updateList($event)"
       ></todo-list-item>
 </ion-list>
 

@@ -16,7 +16,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 export class TodoListItemComponent {
   @Input() ItemTodo: Todo = new Todo('','','','',false)
   @Input() isAdding: boolean = false
-  @Output() deleteItemTodo: EventEmitter<number> = new EventEmitter();
+  @Output() updateTodo: EventEmitter<string> = new EventEmitter();
 
   
   text: string;
@@ -35,12 +35,15 @@ export class TodoListItemComponent {
     myModal.present();
     myModal.onDidDismiss( () => {
       this.longPress = false
+      this.updateTodo.emit("")
     })
     this.longPress = true
   }
 
   calcDate(){
-    let diff_date = new Date().getTime() - new Date(this.ItemTodo.date).getTime()
+    let datesetHoursToZero = new Date(this.ItemTodo.date)
+    datesetHoursToZero.setHours(23,59)
+    let diff_date = new Date().getTime() - datesetHoursToZero.getTime()
     let one_day=1000*60*60*24;
     diff_date /= one_day
     diff_date = Math.round(diff_date)
@@ -66,7 +69,7 @@ export class TodoListItemComponent {
     console.log('TODO ',this.ItemTodo)
     let todoid = this.ItemTodo.todoid
     await this._todoProvider.removeTodo(todoid)
-    this.deleteItemTodo.emit(1)
+    this.updateTodo.emit(todoid)
   }
 
 }
