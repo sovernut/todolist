@@ -14,7 +14,11 @@ todo-list-item {
         font-size: 16px;
         transition: 0.1s linear ;
     }
-    
+    .text-big {
+        font-size:40px;
+        font-weight: bold;
+    }
+
     .priority1 {
         color: rgb(99, 145, 99) !important;
     }

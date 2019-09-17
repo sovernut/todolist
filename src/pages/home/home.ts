@@ -12,6 +12,8 @@ export class HomePage implements OnInit {
   formTodo: FormGroup
   todolist: any
   isAdding: Boolean = false
+  sortDateSymbol = ""
+  sortPSymbol = ""
   @ViewChild(Content) list: Content;
 
   constructor(
@@ -68,21 +70,76 @@ export class HomePage implements OnInit {
     await this.getTodoList()
   }
 
-  sortByPriority(){
+  sortByPriority(pSymbol){
+    if (pSymbol == '') return;
     this.todolist.sort((a,b) => {
+      if (pSymbol=='↑') {
+        let temp = a
+        a = b
+        b = temp
+      }
       return b.priority - a.priority
     });
   }
-  sortByDate(){
+  sortByDate(dSymbol){
+    if (dSymbol == '') return;
     this.todolist.sort((a,b) => {
-      return new Date(a.date).getTime() - new Date(b.date).getTime()
+      if (dSymbol=='↑') {
+        let temp = a
+        a = b
+        b = temp
+      }
+      return new Date(b.date).getTime() - new Date(a.date).getTime()
     });
   }
 
-  sortByDateThenPririty(){
-    this.sortByDate()
+  sortByDThenP(dateSymbol,prioritySymbol){    
     this.todolist.sort((a,b) => {
-      return (new Date(a.date).getTime() - new Date(b.date).getTime()) || (b.priority - a.priority)
+      let bDate = new Date(b.date).getTime(),
+          aDate = new Date(a.date).getTime()
+      let aPri = a.priority,
+          bPri = b.priority
+      if (dateSymbol=='↑') {
+        let temp = aDate
+        aDate = bDate
+        bDate = temp
+      }
+      if (prioritySymbol=='↑'){
+        let temp = aPri
+        aPri = bPri
+        bPri = temp
+      }
+      return (bDate - aDate) || (bPri - aPri)
     });
   }
+
+  toggleSortByDatePriority(mode){
+    if (mode=="P"){
+      this.sortPSymbol = this.toggleStatus(this.sortPSymbol)
+    } else {
+      this.sortDateSymbol = this.toggleStatus(this.sortDateSymbol)
+    }
+
+    if (this.sortDateSymbol != '' && this.sortPSymbol != ''){
+      this.sortByDThenP(this.sortDateSymbol,this.sortPSymbol)
+    } else if (this.sortDateSymbol != '') {
+      this.sortByDate(this.sortDateSymbol)
+    } else if (this.sortPSymbol != '') {
+      this.sortByPriority(this.sortPSymbol)     
+    }
+  }
+
+  toggleStatus(symbol){
+    let new_symbol = ''
+    if (symbol== ""){
+      new_symbol = "↓"
+    } else if (symbol== "↓"){
+      new_symbol = "↑"
+    } else {
+      new_symbol = ""
+    }
+    return new_symbol
+  }
+  
+
 }

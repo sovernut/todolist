@@ -48,28 +48,11 @@ export class TodoListItemComponent {
     if (diff_date < 0){
       day = `In ${Math.abs(diff_date)} day(s)`
     } else if (diff_date > 0) {
-      day = `Passed ${Math.abs(diff_date)} day(s)`
+      day = `${Math.abs(diff_date)} day(s) ago.`
     }
     return day
   }
 
-  mapPriorityToExclamation(): string{
-    let ex = ""
-    switch(this.ItemTodo.priority){
-      case '1':
-        ex = "!"
-        break;
-      case '2':
-        ex = "!!"
-        break;
-      case '3':
-        ex = "!!!"
-        break;
-      default:
-        ex = '...'
-    }
-    return ex
-  }
 
   doneTodo() {
     if (!this.longPress) {

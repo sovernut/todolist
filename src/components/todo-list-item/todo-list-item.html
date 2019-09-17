@@ -1,7 +1,7 @@
 <ion-item-sliding class="padding">
     <ion-item>
       <ion-label text-left>
-          {{ mapPriorityToExclamation() + ' ' +  calcDate() }}
+          {{ calcDate() }}
       </ion-label>
     <ion-label 
     id="todo-{{ItemTodo.todoid}}" 
@@ -10,9 +10,14 @@
       [ngClass]="{'label-fadeout' : longPress,
       'label-fadein': !longPress,
       'gray' : isAdding,
-      'done' : ItemTodo.done}"
-      class="priority{{ItemTodo.priority}}">
+      'done' : ItemTodo.done}">
      {{ ItemTodo.todoText }}
+    </ion-label>
+    <ion-label *ngIf="ItemTodo.priority!='1'" text-right class="priority{{ItemTodo.priority}} text-big">
+        ↑
+    </ion-label>
+    <ion-label *ngIf="ItemTodo.priority=='1'"  text-right class="priority{{ItemTodo.priority}} text-big">
+        ↓
     </ion-label>
   </ion-item>
 

@@ -1,21 +1,12 @@
 <ion-header>
   <ion-navbar>
     <ion-title text-center>
-      Simple Todo
+      To-do
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-fab top left edge>
-        <button ion-fab mini><ion-icon name="arrow-dropright"></ion-icon></button>
-        <ion-fab-list side="right">
-          <button color="primary" (click)="sortByDate()" ion-fab><ion-icon name="calendar"></ion-icon></button>
-          <button color="primary" (click)="sortByPriority()" ion-fab><ion-icon name="md-alert"></ion-icon></button>
-          <button color="primary" (click)="sortByDateThenPririty()" ion-fab><ion-icon name="md-alert"></ion-icon></button>
-        </ion-fab-list>
-      </ion-fab>
-
       <ion-fab right top edge>
           <button [disabled]="isAdding" 
           [ngClass]="{'btn-fadeout' : isAdding, 'btn-fadein' : !isAdding}" 
@@ -48,8 +39,21 @@
     </button>
     </ion-item>
 
-  </form>
+  </form> 
   <ion-list style="padding-top: 20px">
+    <ion-item class="header">
+      <ion-label (click)="toggleSortByDatePriority('D')">
+        Days <button  
+            style="background-color:rgba(0, 0, 0, 0)">{{ sortDateSymbol }}</button>
+      </ion-label>
+      <ion-label>
+        Text
+      </ion-label>
+      <ion-label (click)="toggleSortByDatePriority('P')">
+        Priority <button  
+        style="background-color:rgba(0, 0, 0, 0)">{{ sortPSymbol }}</button>
+      </ion-label>
+    </ion-item>
       <todo-list-item *ngFor="let todo of todolist;let i = index"
         [ItemTodo]="todo"
         [isAdding]="isAdding"
