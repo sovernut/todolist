@@ -1,8 +1,11 @@
+import { SettingsProvider } from './../../providers/settings/settings';
 import { CreateeditPage } from './../createedit/createedit';
 import { TodoStorageProvider } from './../../providers/todo-storage/todo-storage';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NavController, ModalController, Content } from 'ionic-angular';
+import { NavController, ModalController, Content, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { Settings } from '../../model/setting.interface';
 
 @Component({
   selector: 'page-home',
@@ -15,12 +18,16 @@ export class HomePage implements OnInit {
   sortDateSymbol = ""
   sortPSymbol = ""
   @ViewChild(Content) list: Content;
-
+  saveOnSort: boolean = false;
+  settings: Settings = {NOTI: false, SAVESORT: false}
   constructor(
     public navCtrl: NavController,
     private formBuilder: FormBuilder,
     private _todoProvider: TodoStorageProvider,
-    private _modalCtrl: ModalController
+    private _modalCtrl: ModalController,
+    private localNotifications: LocalNotifications,
+    private alertCtrl: AlertController,
+    private _settingsProvider: SettingsProvider
   ) {
     this.formTodo = this.formBuilder.group({
       todo: ['',Validators.required],
@@ -30,11 +37,34 @@ export class HomePage implements OnInit {
 
   ngOnInit(){
     this.getTodoList()
+    this.loadSetting().then( () => {
+      if (this.settings.NOTI) {
+        this.showNotification()
+      }
+    })
+  }
+
+  showNotification(){
+    this._todoProvider.getTodayTodo().then( (v) =>{
+      this.localNotifications.schedule({
+        id: 1,
+        title: 'Todo',
+        text: `You have todo ${v.length} Item`,
+        trigger: {at: new Date(new Date().getTime() + 1000)},
+      });
+    })
   }
 
   async getTodoList(){
     this.todolist = await this._todoProvider.getAllTodo()
     console.log('getTodoList from provider >',this.todolist)
+  }
+
+  loadSetting(){
+    return this._settingsProvider.loadSettings().then( (item) => {
+      this.settings = item
+      console.log('loaded settings ..',this.settings)
+    })
   }
 
   onTodoChange() {
@@ -48,7 +78,6 @@ export class HomePage implements OnInit {
 
   onCreateTodo(){
     console.log('create todo')
-
     const myModal = this._modalCtrl.create('CreateeditPage',
     {todotext: this.formTodo.controls['todo'].value,
     mode: 'Add'},
@@ -132,6 +161,9 @@ export class HomePage implements OnInit {
     } else if (this.sortPSymbol != '') {
       this.sortByPriority(this.sortPSymbol)     
     }
+    if (this.settings.SAVESORT){
+      this._todoProvider.updateStorage()
+    }
   }
 
   toggleStatus(symbol){
@@ -145,6 +177,46 @@ export class HomePage implements OnInit {
     }
     return new_symbol
   }
-  
+  onClickSetting(){
+    const showAlert = this.alertCtrl.create({
+      title: 'Settings',
+      inputs: [
+        {
+          label: 'Notification on Time',
+          value: 'NOTI',
+          type: 'checkbox',
+          checked: this.settings.NOTI || false
+        },
+        {
+          label: 'Save on sort',
+          value: 'SAVESORT',
+          type: 'checkbox',
+          checked: this.settings.SAVESORT || false
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            data.forEach(element => {
+              this.settings[element] = true
+            });
+
+            this._settingsProvider.saveSettings(this.settings).then( () => this.loadSetting())
+          }
+        }
+      ]
+    });
+    showAlert.present()
+    
+    
+  }
 
 }

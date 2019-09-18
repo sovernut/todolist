@@ -51,6 +51,17 @@ export class TodoStorageProvider {
     this.updateStorage()
   }
 
+  doneTodo(id,status){
+    return new Promise( async (resolve,reject) => {
+      let todoToEdit = this.todolist.find( (v,i) => {
+        return v.todoid == id
+      })
+      todoToEdit.done = status
+      await this.updateStorage()
+      resolve()
+    })   
+  }
+
   
   async getAllTodo(){
     return new Promise((res,rej) => {
@@ -75,6 +86,13 @@ export class TodoStorageProvider {
         console.error('Error updateStorage > ',err)
       })
     }) 
+  }
+
+  async getTodayTodo(){
+    await this.getAllTodo()
+    let today = new Date().toISOString().substr(0,10)
+    const todoToday = this.todolist.filter( (v) => v.date == today && !v.done)
+    return {list: todoToday, length: todoToday.length}
   }
 
 

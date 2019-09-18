@@ -59,10 +59,12 @@ export class TodoListItemComponent {
   }
 
 
-  doneTodo() {
+  async doneTodo() {
     if (!this.longPress) {
       console.log('TODO done')
       this.ItemTodo.done  = !this.ItemTodo.done
+      await this._todoProvider.doneTodo(this.ItemTodo.todoid,this.ItemTodo.done)
+      this.updateTodo.emit()
     }
     this.longPress = false;
   }

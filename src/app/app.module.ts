@@ -10,6 +10,8 @@ import { HomePage } from '../pages/home/home';
 import { TodoStorageProvider } from '../providers/todo-storage/todo-storage';
 import { DatePicker } from '@ionic-native/date-picker/ngx';
 import { IonicStorageModule } from '@ionic/storage';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { SettingsProvider } from '../providers/settings/settings';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { IonicStorageModule } from '@ionic/storage';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     TodoStorageProvider,
-    DatePicker  
+    DatePicker,
+    LocalNotifications,
+    SettingsProvider  
   ]
 })
 export class AppModule {}
