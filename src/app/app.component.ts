@@ -22,8 +22,13 @@ export class MyApp {
       this.localNotifications.on('click').subscribe(() => {
           this._todoProv.getTodayTodo().then( (item) => {
               let todo = item.list.reduce( (a,c) => a + c.todoText + '<br>','')
+              let titleText = "Today's Task" 
+              if (item.length == 0) {
+                titleText = "No task..."
+                todo = "You have no task today."
+              }
               let alert = this.alertCtrl.create({
-                title: 'Today Task',
+                title: titleText,
                 subTitle: todo
               });
               alert.present();

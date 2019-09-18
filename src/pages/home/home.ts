@@ -46,6 +46,7 @@ export class HomePage implements OnInit {
 
   showNotification(){
     this._todoProvider.getTodayTodo().then( (v) =>{
+      let texxt = v.length > 0 ? `You have todo ${v.length} Item` : 'No Task Today'
       this.localNotifications.schedule({
         id: 1,
         title: 'Todo',
@@ -185,13 +186,13 @@ export class HomePage implements OnInit {
           label: 'Notification on Time',
           value: 'NOTI',
           type: 'checkbox',
-          checked: this.settings.NOTI || false
+          checked: this.settings.NOTI 
         },
         {
           label: 'Save on sort',
           value: 'SAVESORT',
           type: 'checkbox',
-          checked: this.settings.SAVESORT || false
+          checked: this.settings.SAVESORT
         }
       ],
       buttons: [
@@ -205,10 +206,11 @@ export class HomePage implements OnInit {
         {
           text: 'Save',
           handler: data => {
+            let settings:Settings = {NOTI: false,SAVESORT: false}
             data.forEach(element => {
-              this.settings[element] = true
+              settings[element] = true
             });
-
+            this.settings = settings
             this._settingsProvider.saveSettings(this.settings).then( () => this.loadSetting())
           }
         }

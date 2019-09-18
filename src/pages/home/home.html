@@ -48,19 +48,20 @@
 
   </form> 
   <ion-list style="padding-top: 20px">
-    <ion-item class="header">
-      <ion-label (click)="toggleSortByDatePriority('D')">
-        Days <button  
-            style="background-color:rgba(0, 0, 0, 0)">{{ sortDateSymbol }}</button>
-      </ion-label>
-      <ion-label>
-        Text
-      </ion-label>
-      <ion-label (click)="toggleSortByDatePriority('P')">
-        Priority <button  
-        style="background-color:rgba(0, 0, 0, 0)">{{ sortPSymbol }}</button>
-      </ion-label>
+    <ion-item class="header" *ngIf="todolist?.length > 0">
+        <ion-label (click)="toggleSortByDatePriority('D')">
+          Days <button  
+              style="background-color:rgba(0, 0, 0, 0)">{{ sortDateSymbol }}</button>
+        </ion-label>
+        <ion-label>
+          Text
+        </ion-label>
+        <ion-label (click)="toggleSortByDatePriority('P')">
+          Priority <button  
+          style="background-color:rgba(0, 0, 0, 0)">{{ sortPSymbol }}</button>
+        </ion-label>
     </ion-item>
+      <h1 *ngIf="todolist?.length==0">You have no task. Add one --></h1>
       <todo-list-item *ngFor="let todo of todolist;let i = index"
         [ItemTodo]="todo"
         [isAdding]="isAdding"
