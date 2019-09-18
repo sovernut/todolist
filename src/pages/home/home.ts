@@ -50,7 +50,7 @@ export class HomePage implements OnInit {
       this.localNotifications.schedule({
         id: 1,
         title: 'Todo',
-        text: `You have todo ${v.length} Item`,
+        text: texxt,
         trigger: {at: new Date(new Date().getTime() + 1000)},
       });
     })
