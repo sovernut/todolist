@@ -42,8 +42,10 @@ export class TodoListItemComponent {
 
   calcDate(){
     let datesetHoursToZero = new Date(this.ItemTodo.date)
-    datesetHoursToZero.setHours(23,59)
-    let diff_date = new Date().getTime() - datesetHoursToZero.getTime()
+    let Now = new Date()
+    datesetHoursToZero.setHours(0,0,0)
+    Now.setHours(0,0,0)
+    let diff_date = Now.getTime() - datesetHoursToZero.getTime()
     let one_day=1000*60*60*24;
     diff_date /= one_day
     diff_date = Math.round(diff_date)
